@@ -11,26 +11,32 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide.init
 import com.mobile.sportology.Constants
-import com.mobile.sportology.Constants.Companion.PREMIER_LEAGUE_SEASON_ID
-import com.mobile.sportology.Constants.Companion.SERIE_A_SEASON_ID
+import com.mobile.sportology.Constants.PREMIER_LEAGUE_SEASON_ID
+import com.mobile.sportology.Constants.SERIE_A_SEASON_ID
 import com.mobile.sportology.MyApplication
 import com.mobile.sportology.ResponseState
-import com.mobile.sportology.api.RetrofitInstance.api
+import com.mobile.sportology.api.FootballApi
 import com.mobile.sportology.models.football.Matches
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Named
 
-class FootBallViewModel(app: Application): AndroidViewModel(app) {
+@HiltViewModel
+class FootBallViewModel @Inject constructor(
+    val api: FootballApi,
+    app: Application
+): AndroidViewModel(app) {
     val premierLeagueMatchesLiveData: MutableLiveData<ResponseState<Matches>> = MutableLiveData()
     val serieAMatchesLiveData: MutableLiveData<ResponseState<Matches>> = MutableLiveData()
 
     companion object {
         @JvmStatic
-        @BindingAdapter("bind:homeScore", "bind:awayScore", "bind:statusCode")
+        @BindingAdapter("homeScore", "awayScore", "statusCode")
         fun getScore(textView: TextView, homeScore:Int, awayScore: Int, statusCode: Int) {
             when (statusCode) {
                 0 -> textView.text = "Not started"
@@ -46,6 +52,7 @@ class FootBallViewModel(app: Application): AndroidViewModel(app) {
     init {
         viewModelScope.launch{
             if(hasInternetConnection()){
+
                 getPremierLeagueMatches(Constants.API_KEY, PREMIER_LEAGUE_SEASON_ID)
                 getSerieAMatches(Constants.API_KEY, SERIE_A_SEASON_ID)
             }

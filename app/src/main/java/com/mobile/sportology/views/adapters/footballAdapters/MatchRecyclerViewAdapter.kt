@@ -14,10 +14,6 @@ import com.mobile.sportology.models.football.Matches
 class MatchRecyclerViewAdapter(private val interaction: Interaction? = null):
     RecyclerView.Adapter<MatchRecyclerViewAdapter.MatchViewHolder>() {
 
-    init {
-        setHasStableIds(true)
-    }
-
     private val _diffCallback = object : DiffUtil.ItemCallback<Matches.Data>() {
         override fun areItemsTheSame(
             oldItem: Matches.Data,
@@ -40,8 +36,6 @@ class MatchRecyclerViewAdapter(private val interaction: Interaction? = null):
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) = holder.bind(differ.currentList[position])
 
     override fun getItemCount(): Int = differ.currentList.size
-
-    override fun getItemId(position: Int): Long = position.toLong()
 
     inner class MatchViewHolder(
         _itemViewBinding: LeagueMatchResultItemBinding,

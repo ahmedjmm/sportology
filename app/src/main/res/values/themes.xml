@@ -2,6 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Sportology" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Theme.Sportology" parent="Base.Theme.Sportology" />

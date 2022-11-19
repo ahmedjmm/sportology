@@ -1,14 +1,14 @@
 package com.mobile.sportology.api
 
-import com.mobile.sportology.Constants.Companion.API_KEY
-import com.mobile.sportology.Constants.Companion.PREMIER_LEAGUE_SEASON_ID
-import com.mobile.sportology.Constants.Companion.SERIE_A_SEASON_ID
+import com.mobile.sportology.Constants.API_KEY
+import com.mobile.sportology.Constants.PREMIER_LEAGUE_SEASON_ID
+import com.mobile.sportology.Constants.SERIE_A_SEASON_ID
 import com.mobile.sportology.models.football.Matches
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface MatchesApi {
+interface FootballApi {
     @GET("api/v1/soccer/matches")
     suspend fun getSerieAMatches(
         @Query("apikey")

@@ -1,6 +1,7 @@
 package com.mobile.sportology.views.fragments.footballFragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +11,25 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.sportology.R
 import com.mobile.sportology.ResponseState
+import com.mobile.sportology.api.FootballApi
 import com.mobile.sportology.databinding.FragmentLeagueBinding
 import com.mobile.sportology.models.football.Matches
 import com.mobile.sportology.viewModels.FootBallViewModel
 import com.mobile.sportology.viewModels.MyViewModelProvider
 import com.mobile.sportology.views.adapters.footballAdapters.PremierLeagueRecyclerViewAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PremierLeagueFragment: Fragment(R.layout.fragment_league) {
-    private val footBallViewModel by lazy {
-        ViewModelProvider(this, MyViewModelProvider(requireActivity().application))[FootBallViewModel::class.java]
+    @Inject
+    lateinit var api: FootballApi
+    private val footBallViewModel: FootBallViewModel by lazy {
+        ViewModelProvider(this, MyViewModelProvider(api, requireActivity().application))[FootBallViewModel::class.java]
     }
+
+//    private val footBallViewModel: FootBallViewModel by viewModels()
+
     lateinit var binding: FragmentLeagueBinding
 
     override fun onCreateView(

@@ -6,21 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.sportology.R
 import com.mobile.sportology.ResponseState
+import com.mobile.sportology.api.FootballApi
 import com.mobile.sportology.databinding.FragmentLeagueBinding
 import com.mobile.sportology.models.football.Matches
 import com.mobile.sportology.viewModels.FootBallViewModel
 import com.mobile.sportology.viewModels.MyViewModelProvider
 import com.mobile.sportology.views.adapters.footballAdapters.PremierLeagueRecyclerViewAdapter
 import com.mobile.sportology.views.adapters.footballAdapters.SerieARecyclerViewAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+
+@AndroidEntryPoint
 class SerieAFragment: Fragment(R.layout.fragment_league) {
-    private val footBallViewModel by lazy {
-        ViewModelProvider(this, MyViewModelProvider(requireActivity().application))[FootBallViewModel::class.java]
+    @Inject
+    lateinit var api: FootballApi
+    private val footBallViewModel: FootBallViewModel by lazy {
+        ViewModelProvider(this, MyViewModelProvider(api, requireActivity().application))[FootBallViewModel::class.java]
     }
+
     lateinit var binding: FragmentLeagueBinding
 
     override fun onCreateView(
