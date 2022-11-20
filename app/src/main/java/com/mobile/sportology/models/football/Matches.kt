@@ -1,5 +1,6 @@
 package com.mobile.sportology.models.football
 
+import android.media.audiofx.DynamicsProcessing
 import android.util.Log
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -22,12 +23,28 @@ data class Matches(
         val referee_id: Int?,
         val round: Round,
         val season_id: Int,
-        val stage: Stage,
+        val stage: DynamicsProcessing.Stage,
         val stats: Stats,
         val status: String,
         val status_code: Int,
         val venue: Venue?
     ) {
+
+//            companion object {
+//            @JvmStatic
+//            @BindingAdapter("homeScore", "awayScore", "statusCode")
+//            fun getScore(textView: TextView, homeScore:Int, awayScore: Int, statusCode: Int) {
+//                when (statusCode) {
+//                    0 -> textView.text = "Not started"
+//                    3 -> textView.text = "$homeScore - $awayScore"
+//                    4 -> textView.text = "Postponed"
+//                    5 -> textView.text = "Canceled"
+//                    11 -> textView.text = "$homeScore HT $awayScore"
+//                    else -> textView.text = "Not provided"
+//                }
+//            }
+//        }
+
         data class AwayTeam(
             val common_name: String,
             val country: Country?,

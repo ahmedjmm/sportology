@@ -58,7 +58,7 @@ class SerieARecyclerViewAdapter(private val viewModel: FootBallViewModel):
         matchRecyclerViewAdapter.differ.submitList(childList)
     }
 
-    override fun getItemId(position: Int): Long  = position.toLong()
+    override fun getItemViewType(position: Int): Int = position
 
     override fun getItemCount(): Int = differ.currentList.size
 /////////////////////////////////////////////////////////////////////////////////////////////////

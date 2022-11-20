@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mobile.sportology.R
 import com.mobile.sportology.ResponseState
 import com.mobile.sportology.api.FootballApi
@@ -17,6 +18,7 @@ import com.mobile.sportology.models.football.Matches
 import com.mobile.sportology.viewModels.FootBallViewModel
 import com.mobile.sportology.viewModels.MyViewModelProvider
 import com.mobile.sportology.views.adapters.footballAdapters.PremierLeagueRecyclerViewAdapter
+import com.mobile.sportology.viewsUtils.recyclerview.RecyclerViewItemsDivider
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

@@ -34,20 +34,20 @@ class FootBallViewModel @Inject constructor(
     val premierLeagueMatchesLiveData: MutableLiveData<ResponseState<Matches>> = MutableLiveData()
     val serieAMatchesLiveData: MutableLiveData<ResponseState<Matches>> = MutableLiveData()
 
-    companion object {
-        @JvmStatic
-        @BindingAdapter("homeScore", "awayScore", "statusCode")
-        fun getScore(textView: TextView, homeScore:Int, awayScore: Int, statusCode: Int) {
-            when (statusCode) {
-                0 -> textView.text = "Not started"
-                3 -> textView.text = "$homeScore - $awayScore"
-                4 -> textView.text = "Postponed"
-                5 -> textView.text = "Canceled"
-                11 -> textView.text = "$homeScore HT $awayScore"
-                else -> textView.text = "Not provided"
-            }
-        }
-    }
+//    companion object {
+//        @JvmStatic
+//        @BindingAdapter("homeScore", "awayScore", "statusCode")
+//        fun getScore(textView: TextView, homeScore:Int, awayScore: Int, statusCode: Int) {
+//            when (statusCode) {
+//                0 -> textView.text = "Not started"
+//                3 -> textView.text = "$homeScore - $awayScore"
+//                4 -> textView.text = "Postponed"
+//                5 -> textView.text = "Canceled"
+//                11 -> textView.text = "$homeScore HT $awayScore"
+//                else -> textView.text = "Not provided"
+//            }
+//        }
+//    }
 
     init {
         viewModelScope.launch{

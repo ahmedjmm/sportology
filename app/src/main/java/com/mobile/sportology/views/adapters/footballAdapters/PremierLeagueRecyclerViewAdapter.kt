@@ -14,7 +14,6 @@ import com.mobile.sportology.viewModels.FootBallViewModel
 
 class PremierLeagueRecyclerViewAdapter(private val viewModel: FootBallViewModel):
     RecyclerView.Adapter<PremierLeagueRecyclerViewAdapter.DateViewHolder>() {
-
     private lateinit var premierLeagueMatchDateItemBinding: LeagueMatchDateItemBinding
     private val _diffCallback = object : DiffUtil.ItemCallback<Matches.Data.Date>() {
         override fun areItemsTheSame(
@@ -55,7 +54,10 @@ class PremierLeagueRecyclerViewAdapter(private val viewModel: FootBallViewModel)
     }
 
     override fun getItemCount(): Int = differ.currentList.size
-/////////////////////////////////////////////////////////////////////////////////////////////////
+
+    override fun getItemViewType(position: Int): Int = position
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
 
     inner class DateViewHolder(
         _itemViewBinding: LeagueMatchDateItemBinding,
