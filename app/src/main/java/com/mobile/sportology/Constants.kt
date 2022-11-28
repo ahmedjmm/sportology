@@ -1,8 +1,8 @@
 package com.mobile.sportology
 
 object Constants {
-    const val API_KEY = "4baa25c0-60fa-11ed-98a0-a3bcf6198c91"
-    const val BASE_URL = "https://app.sportdataapi.com"
-    const val PREMIER_LEAGUE_SEASON_ID = 3161
-    const val SERIE_A_SEASON_ID = 3236
+    const val API_KEY = "7d1b55ce7d28916a7a77e9a56828900570ab2a1d2595b01df26f34cfd6ce4615"
+    const val BASE_URL = "https://apiv2.allsportsapi.com/"
+    const val Ghana_ID = 177
+    const val Lithuania_ID = 423
 }

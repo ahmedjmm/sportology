@@ -1,8 +1,6 @@
 package com.mobile.sportology.views.adapters.footballAdapters
 
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.ViewGroup
+import android.view.*
 import android.widget.PopupMenu
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -12,43 +10,42 @@ import com.mobile.sportology.databinding.LeagueMatchDateItemBinding
 import com.mobile.sportology.models.football.Matches
 import com.mobile.sportology.viewModels.FootBallViewModel
 
-class PremierLeagueRecyclerViewAdapter(private val viewModel: FootBallViewModel):
-    RecyclerView.Adapter<PremierLeagueRecyclerViewAdapter.DateViewHolder>() {
-    private lateinit var premierLeagueMatchDateItemBinding: LeagueMatchDateItemBinding
-    private val _diffCallback = object : DiffUtil.ItemCallback<Matches.Data.Date>() {
+class SecondRecyclerViewAdapter(private val viewModel: FootBallViewModel):
+    RecyclerView.Adapter<SecondRecyclerViewAdapter.DateViewHolder>() {
+    private lateinit var leagueMatchDateItemBinding: LeagueMatchDateItemBinding
+    private val _diffCallback = object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(
-            oldItem: Matches.Data.Date,
-            newItem: Matches.Data.Date
+            oldItem: String,
+            newItem: String
         ): Boolean = oldItem == newItem
 
         override fun areContentsTheSame(
-            oldItem: Matches.Data.Date,
-            newItem: Matches.Data.Date
+            oldItem: String,
+            newItem: String
         ): Boolean = oldItem == newItem
     }
     val differ = AsyncListDiffer(this, _diffCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DateViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        premierLeagueMatchDateItemBinding = LeagueMatchDateItemBinding.inflate(
+        leagueMatchDateItemBinding = LeagueMatchDateItemBinding.inflate(
             inflater, parent, false)
-        return DateViewHolder(premierLeagueMatchDateItemBinding)
+        return DateViewHolder(leagueMatchDateItemBinding)
     }
 
     override fun onBindViewHolder(holder: DateViewHolder, position: Int) {
         holder.bind(differ.currentList[position])
         val matchRecyclerViewAdapter = MatchRecyclerViewAdapter()
-        premierLeagueMatchDateItemBinding.childRecyclerView.apply {
+        leagueMatchDateItemBinding.childRecyclerView.apply {
             adapter = matchRecyclerViewAdapter
             layoutManager = LinearLayoutManager(context,
                 LinearLayoutManager.HORIZONTAL, false)
             itemAnimator = null
         }
-        val list = viewModel.premierLeagueMatchesLiveData.value?.data?.data?.toMutableList()
-        val childList = mutableListOf<Matches.Data>()
+        val list = viewModel.secondLeagueMatchesLiveData.value?.data?.result?.toMutableList()
+        val childList = mutableListOf<Matches.Result>()
         list?.forEach {
-            if (it.matchDate == differ.currentList[position].date)
-                childList.add(it)
+            if (it.event_date == differ.currentList[position]) childList.add(it)
         }
         matchRecyclerViewAdapter.differ.submitList(childList)
     }
@@ -60,13 +57,12 @@ class PremierLeagueRecyclerViewAdapter(private val viewModel: FootBallViewModel)
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     inner class DateViewHolder(
-        _itemViewBinding: LeagueMatchDateItemBinding,
+        private val _itemViewBinding: LeagueMatchDateItemBinding,
     ): RecyclerView.ViewHolder(_itemViewBinding.root),
         PopupMenu.OnMenuItemClickListener {
-        private val itemBinding = _itemViewBinding
 
-        fun bind(item: Matches.Data.Date) {
-            itemBinding.match = item
+        fun bind(item: String) {
+            _itemViewBinding.date = item
         }
 
 //        private fun showPopUpMenu(v: View?, position: Int) {

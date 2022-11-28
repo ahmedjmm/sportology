@@ -1,6 +1,5 @@
 package com.mobile.sportology.views.adapters.footballAdapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -14,21 +13,20 @@ import com.mobile.sportology.models.football.Matches
 class MatchRecyclerViewAdapter(private val interaction: Interaction? = null):
     RecyclerView.Adapter<MatchRecyclerViewAdapter.MatchViewHolder>() {
 
-    private val _diffCallback = object : DiffUtil.ItemCallback<Matches.Data>() {
+    private val _diffCallback = object : DiffUtil.ItemCallback<Matches.Result>() {
         override fun areItemsTheSame(
-            oldItem: Matches.Data,
-            newItem: Matches.Data
-        ): Boolean = oldItem.match_id == newItem.match_id
+            oldItem: Matches.Result,
+            newItem: Matches.Result
+        ): Boolean = oldItem.event_key == newItem.event_key
 
         override fun areContentsTheSame(
-            oldItem: Matches.Data,
-            newItem: Matches.Data
+            oldItem: Matches.Result,
+            newItem: Matches.Result
         ): Boolean = oldItem == newItem
     }
     val differ = AsyncListDiffer(this, _diffCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
-//        val inflater = LayoutInflater.from(parent.context)
         val binding = LeagueMatchResultItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MatchViewHolder(binding, interaction)
     }
@@ -38,17 +36,16 @@ class MatchRecyclerViewAdapter(private val interaction: Interaction? = null):
     override fun getItemCount(): Int = differ.currentList.size
 
     inner class MatchViewHolder(
-        _itemViewBinding: LeagueMatchResultItemBinding,
+        private val _itemViewBinding: LeagueMatchResultItemBinding,
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(_itemViewBinding.root),
         PopupMenu.OnMenuItemClickListener {
-        private val itemBinding = _itemViewBinding
 
-        fun bind(item: Matches.Data) {
-            itemBinding.root.setOnClickListener {
+        fun bind(item: Matches.Result) {
+            _itemViewBinding.root.setOnClickListener {
                 interaction?.onItemClicked(adapterPosition, differ.currentList[adapterPosition])
             }
-            itemBinding.match = item
+            _itemViewBinding.match = item
         }
 
 //        private fun showPopUpMenu(v: View?, position: Int) {
@@ -75,6 +72,6 @@ class MatchRecyclerViewAdapter(private val interaction: Interaction? = null):
     }
 
     interface Interaction {
-        fun onItemClicked(position: Int, match: Matches.Data)
+        fun onItemClicked(position: Int, match: Matches.Result)
     }
 }

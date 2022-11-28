@@ -2,8 +2,8 @@
 <layout>
     <data>
         <variable
-            name="match"
-            type="com.mobile.sportology.models.football.Matches.Data.Date" />
+            name="date"
+            type="String" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,7 +13,7 @@
         android:layout_marginTop="8dp">
         <TextView
             android:id="@+id/dateTextView"
-            android:text="@{match.date}"
+            android:text="@{date}"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

@@ -1,7 +1,10 @@
 package com.mobile.sportology.dependencyInjection
 
+import androidx.lifecycle.ViewModelProvider
 import com.mobile.sportology.Constants
 import com.mobile.sportology.api.FootballApi
+import com.mobile.sportology.viewModels.FootBallViewModel
+import com.mobile.sportology.viewModels.MyViewModelProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
