@@ -10,8 +10,8 @@ import com.mobile.sportology.databinding.LeagueMatchDateItemBinding
 import com.mobile.sportology.models.football.Matches
 import com.mobile.sportology.viewModels.FootBallViewModel
 
-class SecondRecyclerViewAdapter(private val viewModel: FootBallViewModel):
-    RecyclerView.Adapter<SecondRecyclerViewAdapter.DateViewHolder>() {
+class SecondLeagueRecyclerViewAdapter(private val viewModel: FootBallViewModel):
+    RecyclerView.Adapter<SecondLeagueRecyclerViewAdapter.DateViewHolder>() {
     private lateinit var leagueMatchDateItemBinding: LeagueMatchDateItemBinding
     private val _diffCallback = object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(

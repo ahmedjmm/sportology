@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/football"
         android:icon="@drawable/ic_football"
-        android:title="@string/football" />
+        android:title="@string/football"
+        app:showAsAction="always"/>
     <item
-        android:id="@+id/cricket"
+        android:id="@+id/basketball"
         android:icon="@drawable/ic_basketball"
         android:title="@string/basketball" />
     <item
-        android:id="@+id/basketball"
+        android:id="@+id/cricket"
         android:icon="@drawable/ic_cricket"
         android:title="@string/cricket" />
     <item

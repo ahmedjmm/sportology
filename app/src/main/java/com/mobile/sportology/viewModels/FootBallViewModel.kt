@@ -40,11 +40,13 @@ class FootBallViewModel @Inject constructor(
             if(hasInternetConnection()){
                 try {
                     getLeagues(Constants.API_KEY)
-                    get1stLeagueMatches(Constants.API_KEY, Ghana_ID, "2022-01-01", "2023-12-30")
-                    get2ndLeagueMatches(Constants.API_KEY, Lithuania_ID, "2022-01-01", "2023-12-30")
+                    get1stLeagueMatches(Constants.API_KEY, Ghana_ID,
+                        "2022-01-01", "2023-12-30", Constants.DubaiTimeZone)
+                    get2ndLeagueMatches(Constants.API_KEY, Lithuania_ID,
+                        "2022-01-01", "2023-12-30", Constants.DubaiTimeZone)
                 }
                 catch (exception: SocketTimeoutException) {
-                    secondLeagueMatchesLiveData.value = ResponseState.Error("Can't connect to server")
+                    secondLeagueMatchesLiveData.value = ResponseState.Error(exception.message!!)
                 }
             }
             else {
@@ -64,14 +66,15 @@ class FootBallViewModel @Inject constructor(
                 leaguesLiveData.postValue(ResponseState.Success(response.body()!!))
             }
             catch (exception: SocketTimeoutException) {
-                leaguesLiveData.postValue(ResponseState.Error("Can't connect to server"))
+                Log.e("getLeagues()", exception.message!!)
+                leaguesLiveData.postValue(ResponseState.Error("Unable to connect to server"))
             }
-
         }
         else leaguesLiveData.postValue(ResponseState.Error("No internet connection"))
     }
 
-    private suspend fun get1stLeagueMatches(apiKey: String, LEAGUE_ID: Int, from: String, to: String) =
+    private suspend fun get1stLeagueMatches(apiKey: String, LEAGUE_ID: Int, from: String, to: String,
+                                            timeZone: String) =
         withContext(Dispatchers.IO) {
             if(hasInternetConnection()){
                 firstLeagueMatchesLiveData.postValue(ResponseState.Loading())
@@ -80,18 +83,21 @@ class FootBallViewModel @Inject constructor(
                         apiKey,
                         LEAGUE_ID,
                         from,
-                        to
+                        to,
+                        timeZone
                     )
                     firstLeagueMatchesLiveData.postValue(ResponseState.Success(response.body()!!))
                 }
-                catch (exception: SocketTimeoutException) {
-                    firstLeagueMatchesLiveData.postValue(ResponseState.Error("Can't connect to server"))
+                catch (exception: Exception) {
+                    Log.e("get1stLeagueMatches()", exception.message!!)
+                    firstLeagueMatchesLiveData.postValue(ResponseState.Error("Unable to connect to server"))
                 }
             }
             else firstLeagueMatchesLiveData.postValue(ResponseState.Error("No internet connection"))
     }
 
-    private suspend fun get2ndLeagueMatches(apiKey: String, LEAGUE_ID: Int, from: String, to: String) =
+    private suspend fun get2ndLeagueMatches(apiKey: String, LEAGUE_ID: Int, from: String, to: String,
+                                            timeZone: String) =
         withContext(Dispatchers.IO) {
             if(hasInternetConnection()){
                 secondLeagueMatchesLiveData.postValue(ResponseState.Loading())
@@ -100,13 +106,14 @@ class FootBallViewModel @Inject constructor(
                         apiKey,
                         LEAGUE_ID,
                         from,
-                        to
+                        to,
+                        timeZone
                     )
-                    Log.i("requestUrl", response.raw().request.url.toString())
                     secondLeagueMatchesLiveData.postValue(ResponseState.Success(response.body()!!))
                 }
-                catch (exception: SocketTimeoutException) {
-                    secondLeagueMatchesLiveData.postValue(ResponseState.Error("Can't connect to server"))
+                catch (exception: Exception) {
+                    Log.e("get2ndLeagueMatches()", exception.message!!)
+                    secondLeagueMatchesLiveData.postValue(ResponseState.Error("Unable to connect to server"))
                 }
             }
             else secondLeagueMatchesLiveData.postValue(ResponseState.Error("No internet connection"))

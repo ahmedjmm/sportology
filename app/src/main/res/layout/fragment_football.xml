@@ -13,38 +13,23 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:liftOnScroll="true">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topAppBar"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:layout_scrollFlags="scroll|enterAlways"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/app_name" />
+                app:title="@string/app_name"/>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabIndicatorColor="@color/design_default_color_primary"
                 app:tabIndicatorHeight="2dp"
                 app:tabIndicatorFullWidth="true"
                 app:tabMode="fixed"
                 app:tabGravity="fill">
-
-<!--                <com.google.android.material.tabs.TabItem-->
-<!--                    android:id="@+id/premier_league"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@{}"-->
-<!--                    android:icon="@drawable/ic_premier_league"/>-->
-
-<!--                <com.google.android.material.tabs.TabItem-->
-<!--                    android:id="@+id/serie_a"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:icon="@drawable/ic_serie_a"/>-->
             </com.google.android.material.tabs.TabLayout>
         </com.google.android.material.appbar.AppBarLayout>
 

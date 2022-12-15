@@ -1,7 +1,7 @@
 package com.mobile.sportology.api
 
-import com.mobile.sportology.Constants.API_KEY
 import com.mobile.sportology.models.football.Leagues
+import com.mobile.sportology.models.football.MatchDetails
 import com.mobile.sportology.models.football.Matches
 import retrofit2.Response
 import retrofit2.http.GET
@@ -17,7 +17,9 @@ interface FootballApi {
         @Query("from")
         from: String,
         @Query("to")
-        to: String
+        to: String,
+        @Query("timezone")
+        timeZone:String
     ): Response<Matches>
 
     @GET("football/?met=Fixtures")
@@ -29,7 +31,9 @@ interface FootballApi {
         @Query("from")
         from: String,
         @Query("to")
-        to: String
+        to: String,
+        @Query("timezone")
+        timeZone:String
     ): Response<Matches>
 
     @GET("football/?met=Leagues")
@@ -37,4 +41,14 @@ interface FootballApi {
         @Query("APIkey")
         apiKey: String,
     ): Response<Leagues>
+
+    @GET("/football/?met=Fixtures")
+    suspend fun getMatchDetails(
+        @Query("APIkey")
+        apiKey: String,
+        @Query("matchId")
+        matchId: Int,
+        @Query("timezone")
+        timeZone: String
+    ): Response<MatchDetails>
 }

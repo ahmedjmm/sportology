@@ -7,13 +7,12 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.mobile.sportology.R
 
-@BindingAdapter("score", "status")
-fun bindScore(textView: TextView, score: String, status: String) {
-    when(status){
-        "Finished" -> textView.text = status + "\n" + score
-        "Postponed" -> textView.text = status
-        "Canceled" -> textView.text = status
-        else -> textView.text = "Not provided"
+@BindingAdapter("score", "status", "eventTime")
+fun bindScore(textView: TextView, score: String, status: String, eventTime: String) {
+    when(score){
+        "" ->
+            textView.text = if(status == "") "Not provided\n$eventTime" else status + "\n" + eventTime
+        else -> textView.text = status + "\n" + score
     }
 }
 

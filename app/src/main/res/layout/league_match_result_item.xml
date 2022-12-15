@@ -65,7 +65,8 @@
                     android:gravity="center"
                     android:maxLines="5"
                     app:score="@{match.event_ft_result}"
-                    app:status="@{match.event_status}" />
+                    app:status="@{match.event_status}"
+                    app:eventTime="@{match.event_time}"/>
 
                 <RelativeLayout
                     android:id="@+id/awayLayout"

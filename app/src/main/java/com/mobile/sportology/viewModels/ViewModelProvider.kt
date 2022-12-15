@@ -11,11 +11,13 @@ import javax.inject.Inject
 
 class MyViewModelProvider @Inject constructor(
     val api: FootballApi,
-    val application: Application
+    val application: Application,
     ): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FootBallViewModel::class.java))
             return FootBallViewModel(api, application) as T
+        else if (modelClass.isAssignableFrom(MatchDetailsViewModel::class.java))
+            return MatchDetailsViewModel(api, application) as T
         else if (modelClass.isAssignableFrom(NewsViewModel::class.java)) return NewsViewModel() as T
         throw IllegalArgumentException("unknown view model")
     }

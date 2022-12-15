@@ -5,4 +5,5 @@ object Constants {
     const val BASE_URL = "https://apiv2.allsportsapi.com/"
     const val Ghana_ID = 177
     const val Lithuania_ID = 423
+    const val DubaiTimeZone = "Asia/Dubai"
 }

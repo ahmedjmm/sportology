@@ -15,8 +15,7 @@ import com.mobile.sportology.api.FootballApi
 import com.mobile.sportology.databinding.FragmentLeagueBinding
 import com.mobile.sportology.viewModels.FootBallViewModel
 import com.mobile.sportology.viewModels.MyViewModelProvider
-import com.mobile.sportology.views.adapters.footballAdapters.FirstLeagueRecyclerViewAdapter
-import com.mobile.sportology.views.adapters.footballAdapters.SecondRecyclerViewAdapter
+import com.mobile.sportology.views.adapters.footballAdapters.SecondLeagueRecyclerViewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -43,9 +42,9 @@ class SecondLeagueFragment: Fragment(R.layout.fragment_league) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val secondRecyclerViewAdapter = SecondRecyclerViewAdapter(footBallViewModel)
+        val secondLeagueRecyclerViewAdapter = SecondLeagueRecyclerViewAdapter(footBallViewModel)
         binding.leagueRV.apply {
-            adapter = secondRecyclerViewAdapter
+            adapter = secondLeagueRecyclerViewAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             itemAnimator = null
         }
@@ -63,7 +62,7 @@ class SecondLeagueFragment: Fragment(R.layout.fragment_league) {
                     for(index in dates.indices)
                         responseState.data?.dates?.add(dates[index])
 
-                    secondRecyclerViewAdapter.differ.submitList(dates)
+                    secondLeagueRecyclerViewAdapter.differ.submitList(dates)
                 }
                 is ResponseState.Loading -> binding.circularProgressIndicator.visibility = View.VISIBLE
                 is ResponseState.Error -> {

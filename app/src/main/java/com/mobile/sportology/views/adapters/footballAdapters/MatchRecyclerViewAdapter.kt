@@ -1,18 +1,23 @@
 package com.mobile.sportology.views.adapters.footballAdapters
 
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.mobile.sportology.Constants
+import com.mobile.sportology.R
 import com.mobile.sportology.databinding.LeagueMatchResultItemBinding
 import com.mobile.sportology.models.football.Matches
 
-class MatchRecyclerViewAdapter(private val interaction: Interaction? = null):
+class MatchRecyclerViewAdapter:
     RecyclerView.Adapter<MatchRecyclerViewAdapter.MatchViewHolder>() {
-
     private val _diffCallback = object : DiffUtil.ItemCallback<Matches.Result>() {
         override fun areItemsTheSame(
             oldItem: Matches.Result,
@@ -28,23 +33,30 @@ class MatchRecyclerViewAdapter(private val interaction: Interaction? = null):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
         val binding = LeagueMatchResultItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MatchViewHolder(binding, interaction)
+
+        return MatchViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MatchViewHolder, position: Int) = holder.bind(differ.currentList[position])
+    override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
+        holder.itemView.apply {
+            setOnClickListener{
+                val bundle = Bundle().apply {
+                    putInt("eventId", differ.currentList[position].event_key)
+                }
+                findNavController().navigate(R.id.action_football_to_matchDetailsActivity, bundle)
+            }
+        }
+        holder.bind(differ.currentList[position])
+    }
 
     override fun getItemCount(): Int = differ.currentList.size
 
     inner class MatchViewHolder(
         private val _itemViewBinding: LeagueMatchResultItemBinding,
-        private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(_itemViewBinding.root),
         PopupMenu.OnMenuItemClickListener {
 
         fun bind(item: Matches.Result) {
-            _itemViewBinding.root.setOnClickListener {
-                interaction?.onItemClicked(adapterPosition, differ.currentList[adapterPosition])
-            }
             _itemViewBinding.match = item
         }
 
@@ -69,9 +81,5 @@ class MatchRecyclerViewAdapter(private val interaction: Interaction? = null):
             }
             return false
         }
-    }
-
-    interface Interaction {
-        fun onItemClicked(position: Int, match: Matches.Result)
     }
 }

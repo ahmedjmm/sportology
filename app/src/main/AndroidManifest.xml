@@ -15,12 +15,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sportology"
+        tools:replace="android:allowBackup"
         tools:targetApi="31">
+
+        <activity
+            android:name=".views.activities.MatchDetailsActivity"
+            android:exported="false"
+            android:theme="@style/matchDetailsActivityTheme">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".views.activities.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Sportology">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
